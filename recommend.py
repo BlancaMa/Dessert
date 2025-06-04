@@ -41,7 +41,7 @@ if __name__ == "__main__":
 # flavor[str]: the flavor to filter by
 # desserts[list]: list of Dessert objects
 # Returns a list of desserts matching the flavor
-#def filter_by_flavor(flavor: str, desserts: list) -> list:
+#def find_by_flavor(flavor: str, desserts: list) -> list:
     #return [d for d in desserts if flavor in d.flavor]
 
 # The function returns all desserts under a given calorie count
@@ -71,3 +71,19 @@ if __name__ == "__main__":
 # Returns nothing, modifies dessert list in place
 #def add_dessert(dessert: 'Dessert', manager: 'DessertManager') -> None:
     #manager.desserts.append(dessert)
+
+
+
+
+def find_by_flavor(dessert, flavor):
+    return [d for d in dessert if d["flavor"] == flavor]
+
+
+# Function to find desserts by texture
+def find_by_texture(dessert, texture):
+    return [d for d in dessert if d["texture"] == texture]
+
+
+# Function to find desserts by cuisine
+def find_by_cuisine(dessert, cuisine):
+    return [d for d in dessert if d["cuisine"] == cuisine]
