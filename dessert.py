@@ -40,8 +40,7 @@ class DessertManager:
     def add_dessert(self, dessert):
         self.desserts.append(dessert)
 
-    def find_by_flavor(self, flavor: str) -> list:
-        return [d for d in self.desserts if flavor.lower() in d.flavor.lower()]
+
 
 
 
