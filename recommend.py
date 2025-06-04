@@ -2,44 +2,39 @@ import dessert
 import data
 import test_dessert
 
-def ask_question(prompt, options):
-    print(prompt)
-    for i in range(len(options)):
-        print(str(i + 1) + ". " + options[i])
+def get_input(prompt, valid_options):
     while True:
-        choice = input("Enter number: ")
-        if choice.isdigit() and 1 <= int(choice) <= len(options):
-            return options[int(choice) - 1]
+        print(prompt)
+        answer = input("Your answer: ").lower()
+        if answer in valid_options:
+            return answer
         else:
-            print("Invalid input. Try again.")
+            print("Sorry, that is not a valid choice. Try again.")
 
-def recommend_dessert(preferences):
-    candidates = []
-    for d in desserts:
-        match_flavor = preferences["flavor"] in d["flavor"] if type(d["flavor"]) == list else preferences["flavor"] == d["flavor"]
-        if (d["type"] == preferences["type"] and d["texture"] == preferences["texture"] and d["cuisine"] == preferences["cuisine"] and match_flavor):
-            candidates.append(d)
-    if len(candidates) == 0:
-        return "Sorry, no dessert matches your choices."
-    best = candidates[0]
-    for c in candidates:
-        if c["calories"] < best["calories"]:
-            best = c
-    return "We recommend: " + best["name"].replace("_", " ").title() + " (" + str(best["calories"]) + " calories)"
+def recommend_dessert(texture, flavor, cuisine):
+    matches = []
+    for d in dessert:
+        match_flavor = flavor in d["flavor"] if type(d["flavor"]) == list else flavor == d["flavor"]
+        if d["texture"] == texture and match_flavor and d["cuisine"].lower() == cuisine:
+            matches.append(d)
+    if len(matches) == 0:
+        return "Sorry, no desserts match your choices."
+    best = matches[0]
+    for d in matches:
+        if d["calories"] < best["calories"]:
+            best = d
+    return "We recommend: " + best["name"].title() + " with " + str(best["calories"]) + " calories."
 
 def main():
-    print("Dessert Finder Quiz")
-    dessert_type = ask_question("Choose dessert type:", ["cake", "cookies", "ice cream", "pastries", "non_baked", "pies", "beverages"])
-    flavor = ask_question("Choose a flavor:", ["vanilla", "chocolate", "fruits", "cinnamon", "coffee"])
-    texture = ask_question("Choose a texture:", ["soft", "chewy", "crispy", "creamy", "smooth"])
-    cuisine = ask_question("Choose a cuisine:", ["American", "Hispanic", "French", "Asian"])
-    preferences = {"type": dessert_type, "flavor": flavor, "texture": texture, "cuisine": cuisine}
-    result = recommend_dessert(preferences)
+    print("Welcome to the Dessert Recommender!")
+    texture = get_input("Choose a texture (chewy, soft, creamy, crispy, smooth):", ["chewy", "soft", "creamy", "crispy", "smooth"])
+    flavor = get_input("Choose a flavor (chocolate, vanilla, fruits, cinnamon, coffee):", ["chocolate", "vanilla", "fruits", "cinnamon", "coffee"])
+    cuisine = get_input("Choose a cuisine (American, Hispanic, French, Asian):", ["american", "hispanic", "french", "asian"])
+    result = recommend_dessert(texture, flavor, cuisine)
     print(result)
 
 if __name__ == "__main__":
     main()
-
 
 
 # The function filters desserts based on a target flavor
