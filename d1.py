@@ -1,4 +1,4 @@
-
+#blanca
 class Dessert:
     def __init__(self, name, calories, flavor, cuisine, texture, type):
         self.name= name
@@ -33,12 +33,6 @@ class Dessert:
         print("Type: {}".format(self.type))
         print("Texture: {}".format(self.texture))
 
-class DessertManager:
-    def __init__(self):
-        self.desserts = []
-
-    def add_dessert(self, dessert):
-        self.desserts.append(dessert)
 
 
 

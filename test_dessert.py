@@ -1,54 +1,51 @@
 from unittest import TestCase
 import unittest
-import dessert
+import d1
 import recommend
 import data
 
+#Blanca
 
 class TestCases(unittest.TestCase):
 
-    def test_find_by_flavor(self):
-       self.fail()
+    def test_get_input1(self):
+        print("\nTest 1: Please enter 'vanilla' when prompted.")
+        expected = "vanilla"
+        result = recommend.get_input("Choose a flavor:", ["vanilla", "chocolate", "fruits", "mint", "Cookies and cream", "coffee", "cinnamon"])
+        self.assertEqual(expected, result)
+
+    def test_get_input2(self):
+        print("\nTest 2: Please enter 'apple' (invalid), then 'chocolate' (valid).")
+        expected = "chocolate"
+        result = recommend.get_input("Choose a flavor:", ["vanilla", "chocolate", "fruits", "mint", "Cookies and cream", "coffee", "cinnamon"])
+        self.assertEqual(expected, result)
+
+    def test_recommend1(self):
+        texture = "chewy"
+        flavor = "chocolate"
+        cuisine = "american"
+        result = recommend.recommend_dessert(texture, flavor, cuisine)
+        # The recommended dessert should contain "Brownie"
+        self.assertIn("Brownie", result)
+
+    def test_recommend2(self):
+        texture = "hard"
+        flavor = "mint"
+        cuisine = "asian"
+        result = recommend.recommend_dessert(texture, flavor, cuisine)
+        expected = "Sorry, no desserts match your choices."
+        self.assertEqual(expected, result)
 
 
-    #def test_find_by_flavor_1(self):
-        #input1 = "vanilla"
-        #result = self.manager.find_by_flavor(input1)
-        #expected = ["Vanilla Cake", "Vanilla Ice Cream"]
-        #self.assertEqual(expected, [d.name for d in result])
+    def test_main_manual_1(self):
+        print("\nManual Test 1: Enter chewy, chocolate, american when prompted")
+        recommend.main()
 
-    #def test_find_by_flavor_1(self):
-        #input1 = "vanilla"
-        #result = recommend.find_by_flavor(input1)
-        #expected = ["Vanilla Cake", "Vanilla Ice Cream", "Creme Brulee"]
-        #self.assertEqual(expected, [d.name for d in result])
 
-    def test_find_by_flavor_found(self):
-        result = recommend.find_by_flavor(dessert, "vanilla")
-        expected = ["Vanilla Cake", "Vanilla Ice Cream", "Creme Brulee"]
-        self.assertEqual(result, expected)
+    def test_main_manual_2(self):
+        print("\nManual Test 2: Enter smooth, mint, french (no match expected)")
+        recommend.main()
 
-    def test_find_by_flavor_not_found(self):
-        result = recommend.find_by_flavor(dessert, "mint")
-        self.assertEqual(result, [])
-
-    def test_find_by_texture_found(self):
-        result = recommend.find_by_texture(dessert, "creamy")
-        expected = ["Vanilla Ice Cream", "Chocolate Mousse", "Creme Brulee"]
-        self.assertEqual([d["name"] for d in result], expected)
-
-    def test_find_by_texture_not_found(self):
-        result = recommend.find_by_texture(dessert, "fluffy")
-        self.assertEqual(result, [])
-
-    def test_find_by_cuisine_found(self):
-        result = recommend.find_by_cuisine(dessert, "French")
-        expected = ["Chocolate Mousse", "Creme Brulee"]
-        self.assertEqual([d["name"] for d in result], expected)
-
-    def test_find_by_cuisine_not_found(self):
-        result = recommend.find_by_cuisine(dessert, "Italian")
-        self.assertEqual(result, [])
 
 
 if __name__ == "__main__":
