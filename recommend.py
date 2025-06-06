@@ -3,6 +3,7 @@ from Dessert_Dictionary import American, Hispanic, French, Asian, All_Desserts
 import test_dessert
 
 #rosa and Blanca
+# Prompts the user until a valid response from the options is received.
 def get_input(prompt, valid_options, ):
     while True:
         print(prompt)
@@ -11,7 +12,7 @@ def get_input(prompt, valid_options, ):
             return answer
         else:
             print("Sorry, that is not a valid choice. Try again.")
-
+# Recommends the lowest-calorie dessert that matches the given texture, flavor, and cuisine.
 def recommend_dessert(texture, flavor, cuisine):
     matches = []
     for d in All_Desserts:
@@ -25,7 +26,7 @@ def recommend_dessert(texture, flavor, cuisine):
         if d["calories"] < best["calories"]:
             best = d
     return "We recommend: " + best["name"].title() + " with " + str(best["calories"]) + " calories."
-
+# Runs the full dessert recommendation process by prompting the user and showing the result.
 def main():
     print("Welcome to the Dessert Recommender!")
     texture = get_input("Choose a texture (chewy, soft, creamy, crispy, smooth):", ["chewy", "soft", "creamy", "crispy", "smooth"])
